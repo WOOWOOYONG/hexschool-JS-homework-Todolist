@@ -2,9 +2,7 @@ const add_input = document.querySelector(".add_input");
 const add_btn = document.querySelector(".add_btn");
 const list = document.querySelector(".list");
 const tab = document.querySelector(".tab");
-const tab_all = document.querySelector(".tab>li:first-of-type");
-const tab_undone = document.querySelector(".tab>li:nth-of-type(2)");
-const tab_done = document.querySelector(".tab>li:last-of-type");
+const todoTabs = document.querySelectorAll(".tabState");
 let tabStatus = "all";
 
 //待辦清單陣列
@@ -33,7 +31,7 @@ function renderTodo(todos) {
           <span>${item.content}</span>
         </label>
         <button class="delete_btn" data-num="${index}">
-          <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark" data-num="${index}"></i>
         </button>
       </li>`;
   });
@@ -53,8 +51,13 @@ add_btn.addEventListener("click", () => {
   };
 
   todoList.push(item);
-  renderTodo();
+  renderTodo(todoList);
   add_input.value = "";
+  //新增後回到'全部'頁籤
+  todoTabs.forEach((tab) => {
+    tab.classList.remove("active");
+  });
+  todoTabs[0].classList.add("active");
 });
 
 //刪除待辦事項
@@ -67,32 +70,22 @@ list.addEventListener("click", (e) => {
   }
   const num = e.target.getAttribute("data-num");
   todoList.splice(num, 1);
-  renderTodo();
+  renderTodo(todoList);
 });
 
-//tab頁籤更改顯示狀態
-
+//依照選取頁籤變更當前todolist狀態
 tab.addEventListener("click", (e) => {
   changeTab(e);
 });
 
 function changeTab(e) {
-  if (e.target.getAttribute("data-state") === "all") {
-    tab_all.classList.add("active");
-    tab_undone.classList.remove("active");
-    tab_done.classList.remove("active");
-    tabStatus = "all";
-  } else if (e.target.getAttribute("data-state") === "undone") {
-    tab_undone.classList.add("active");
-    tab_done.classList.remove("active");
-    tab_all.classList.remove("active");
-    tabStatus = "undone";
-  } else if (e.target.getAttribute("data-state") === "done") {
-    tab_done.classList.add("active");
-    tab_undone.classList.remove("active");
-    tab_all.classList.remove("active");
-    tabStatus = "done";
-  }
+  let selectedTab = e.target.dataset.state;
+  todoTabs.forEach((tab) => {
+    tab.classList.remove("active");
+  });
+
+  e.target.classList.add("active");
+  tabStatus = selectedTab;
   statusHandler(tabStatus);
 }
 
