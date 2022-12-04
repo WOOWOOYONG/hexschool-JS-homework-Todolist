@@ -55,8 +55,9 @@ body {
       }
     }
 
-    div.todolist {
-      ul.tab {
+    .todolist {
+      width: 400px;
+      .tab {
         border-radius: 5px 5px 0 0;
         display: flex;
         justify-content: center;
@@ -79,7 +80,7 @@ body {
         }
       }
 
-      div.todo_input {
+      .todo_input {
         display: flex;
         padding: 4px 4px 4px 0.5rem;
         border: 1px solid #000;
@@ -102,12 +103,12 @@ body {
         }
       }
 
-      div.content {
+      .content {
         padding: 0.5rem 1rem 1rem 1rem;
         background-color: $theme-color;
         font-size: 1.3rem;
 
-        ul.list {
+        .list {
           li {
             display: flex;
             justify-content: space-between;
@@ -151,7 +152,7 @@ body {
                 height: 1rem;
                 width: 1rem;
                 border-radius: 5px;
-                border: 1px solid $gray;
+                border: 2px solid $gray;
                 pointer-events: none;
                 transition: 0.3s ease;
               }
@@ -192,6 +193,7 @@ body {
               background-color: $theme-color;
               &:hover {
                 cursor: pointer;
+                transform: scale(1.2);
               }
               i {
                 font-size: 0.8rem;
@@ -200,7 +202,7 @@ body {
           }
         }
       }
-      div.list_footer {
+      .list_footer {
         display: flex;
         font-size: 1rem;
         padding: 0.5rem 1rem;
@@ -209,7 +211,7 @@ body {
         background-color: $footer-color;
         border-radius: 0 0 5px 5px;
 
-        button.clear_btn {
+        .clear_btn {
           margin-left: 2rem;
           font-size: 1rem;
           padding: 0 0.5rem;

@@ -1,12 +1,14 @@
 const add_input = document.querySelector(".add_input");
 const add_btn = document.querySelector(".add_btn");
-const list = document.querySelector(".list");
+const listArea = document.querySelector(".list");
 const tab = document.querySelector(".tab");
 const todoTabs = document.querySelectorAll(".tabState");
+const clear_btn = document.querySelector(".clear_btn");
+const remainingArea = document.querySelector(".remaining");
 let tabStatus = "all";
 
 //待辦清單陣列
-const todoList = [
+let todoList = [
   {
     content: "打掃房間",
     done: true,
@@ -41,7 +43,8 @@ function renderTodo(todos) {
         </button>
       </li>`;
   });
-  list.innerHTML = str;
+  listArea.innerHTML = str;
+  countUndone();
 }
 
 //redner todolist by status
@@ -86,7 +89,7 @@ add_btn.addEventListener("click", () => {
 });
 
 //更改狀態＆刪除待辦事項
-list.addEventListener("click", (e) => {
+listArea.addEventListener("click", (e) => {
   if (
     e.target.getAttribute("class") !== "delete_btn" &&
     e.target.getAttribute("class") !== "fa-solid fa-xmark"
@@ -109,6 +112,9 @@ list.addEventListener("click", (e) => {
 
 //依照選取頁籤變更當前todolist狀態
 tab.addEventListener("click", (e) => {
+  if (e.target.nodeName === "UL") {
+    return;
+  }
   changeTab(e);
 });
 
@@ -120,5 +126,35 @@ function changeTab(e) {
 
   e.target.classList.add("active");
   tabStatus = selectedTab;
+  setTodobyStatus(tabStatus);
+}
+
+//計算剩餘未完成事項
+function countUndone() {
+  const undoneNum = todoList.filter((todo) => {
+    return todo.done === false;
+  }).length;
+  if (undoneNum == 0) {
+    remainingArea.textContent = `沒事多喝水`;
+    reutrn;
+  }
+  remainingArea.textContent = `${undoneNum} 個待完成`;
+}
+
+//清除已完成事項
+clear_btn.addEventListener("click", () => {
+  clearDoneItem();
+});
+function clearDoneItem() {
+  todoList = todoList.filter((todo) => {
+    return todo.done === false;
+  });
+  //清除後回到'全部‘頁籤
+  todoTabs.forEach((tab) => {
+    tab.classList.remove("active");
+  });
+  todoTabs[0].classList.add("active");
+  tabStatus = "all";
+
   setTodobyStatus(tabStatus);
 }

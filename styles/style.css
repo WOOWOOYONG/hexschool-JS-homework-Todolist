@@ -49,7 +49,10 @@ body .container input[type=text]:-ms-input-placeholder {
 body .container input[type=text]::placeholder {
   color: rgb(155, 155, 155);
 }
-body .container div.todolist ul.tab {
+body .container .todolist {
+  width: 400px;
+}
+body .container .todolist .tab {
   border-radius: 5px 5px 0 0;
   display: flex;
   justify-content: center;
@@ -60,50 +63,50 @@ body .container div.todolist ul.tab {
   background-color: rgb(225, 220, 211);
   margin-top: 1rem;
 }
-body .container div.todolist ul.tab li {
+body .container .todolist .tab li {
   margin: 0 1rem;
   padding: 0 0.5rem;
 }
-body .container div.todolist ul.tab li.active {
+body .container .todolist .tab li.active {
   color: rgb(20, 20, 20);
   border-bottom: 2px solid #333;
 }
-body .container div.todolist ul.tab li:hover {
+body .container .todolist .tab li:hover {
   cursor: pointer;
 }
-body .container div.todolist div.todo_input {
+body .container .todolist .todo_input {
   display: flex;
   padding: 4px 4px 4px 0.5rem;
   border: 1px solid #000;
   background-color: rgb(254, 250, 241);
 }
-body .container div.todolist div.todo_input .add_btn {
+body .container .todolist .todo_input .add_btn {
   margin-left: 0.5rem;
   padding: 0.3rem 0.5rem;
   border-radius: 5px;
   background-color: rgb(65, 90, 150);
 }
-body .container div.todolist div.todo_input .add_btn:hover {
+body .container .todolist .todo_input .add_btn:hover {
   cursor: pointer;
   background-color: rgb(17, 30, 70);
   transition: all 0.3s ease;
 }
-body .container div.todolist div.todo_input .add_btn i {
+body .container .todolist .todo_input .add_btn i {
   color: #fff;
   font-size: 0.75rem;
 }
-body .container div.todolist div.content {
+body .container .todolist .content {
   padding: 0.5rem 1rem 1rem 1rem;
   background-color: rgb(254, 250, 241);
   font-size: 1.3rem;
 }
-body .container div.todolist div.content ul.list li {
+body .container .todolist .content .list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 1rem 0;
 }
-body .container div.todolist div.content ul.list li .checkbox {
+body .container .todolist .content .list li .checkbox {
   position: relative;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -114,18 +117,18 @@ body .container div.todolist div.content ul.list li .checkbox {
   padding-left: 50px;
   cursor: pointer;
 }
-body .container div.todolist div.content ul.list li .checkbox span {
+body .container .todolist .content .list li .checkbox span {
   display: block;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
   line-height: 1rem;
 }
 @media (max-width: 575px) {
-  body .container div.todolist div.content ul.list li .checkbox span {
+  body .container .todolist .content .list li .checkbox span {
     padding-right: 1rem;
   }
 }
-body .container div.todolist div.content ul.list li .checkbox input {
+body .container .todolist .content .list li .checkbox input {
   position: absolute;
   top: 0;
   left: 0;
@@ -136,7 +139,7 @@ body .container div.todolist div.content ul.list li .checkbox input {
   width: 100%;
   margin: 0;
 }
-body .container div.todolist div.content ul.list li .checkbox span::before {
+body .container .todolist .content .list li .checkbox span::before {
   content: "";
   position: absolute;
   left: 0.5rem;
@@ -145,11 +148,11 @@ body .container div.todolist div.content ul.list li .checkbox span::before {
   height: 1rem;
   width: 1rem;
   border-radius: 5px;
-  border: 1px solid rgb(155, 155, 155);
+  border: 2px solid rgb(155, 155, 155);
   pointer-events: none;
   transition: 0.3s ease;
 }
-body .container div.todolist div.content ul.list li .checkbox span::after {
+body .container .todolist .content .list li .checkbox span::after {
   content: "";
   position: absolute;
   left: 14px;
@@ -164,30 +167,31 @@ body .container div.todolist div.content ul.list li .checkbox span::after {
   opacity: 0;
   transition: 0.3s ease;
 }
-body .container div.todolist div.content ul.list li .checkbox input:checked ~ span {
+body .container .todolist .content .list li .checkbox input:checked ~ span {
   color: rgb(155, 155, 155);
   text-decoration: line-through;
 }
-body .container div.todolist div.content ul.list li .checkbox input:checked ~ span::before {
+body .container .todolist .content .list li .checkbox input:checked ~ span::before {
   border-color: transparent;
   transform: translateY(-50%) scale(0);
 }
-body .container div.todolist div.content ul.list li .checkbox input:checked ~ span::after {
+body .container .todolist .content .list li .checkbox input:checked ~ span::after {
   opacity: 1;
 }
-body .container div.todolist div.content ul.list li .delete_btn {
+body .container .todolist .content .list li .delete_btn {
   width: 22px;
   height: 22px;
   border-radius: 20%;
   background-color: rgb(254, 250, 241);
 }
-body .container div.todolist div.content ul.list li .delete_btn:hover {
+body .container .todolist .content .list li .delete_btn:hover {
   cursor: pointer;
+  transform: scale(1.2);
 }
-body .container div.todolist div.content ul.list li .delete_btn i {
+body .container .todolist .content .list li .delete_btn i {
   font-size: 0.8rem;
 }
-body .container div.todolist div.list_footer {
+body .container .todolist .list_footer {
   display: flex;
   font-size: 1rem;
   padding: 0.5rem 1rem;
@@ -196,7 +200,7 @@ body .container div.todolist div.list_footer {
   background-color: rgb(225, 220, 211);
   border-radius: 0 0 5px 5px;
 }
-body .container div.todolist div.list_footer button.clear_btn {
+body .container .todolist .list_footer .clear_btn {
   margin-left: 2rem;
   font-size: 1rem;
   padding: 0 0.5rem;
@@ -204,7 +208,7 @@ body .container div.todolist div.list_footer button.clear_btn {
   border-radius: 5px;
   color: #fff;
 }
-body .container div.todolist div.list_footer button.clear_btn:hover {
+body .container .todolist .list_footer .clear_btn:hover {
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: rgba(205, 76, 33, 0.975);
