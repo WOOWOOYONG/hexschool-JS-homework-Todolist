@@ -9,13 +9,18 @@ let tabStatus = "all";
 const todoList = [
   {
     content: "打掃房間",
-    status: "undone",
+    done: true,
     id: 1,
   },
   {
     content: "洗衣服",
-    status: "undone",
+    done: false,
     id: 2,
+  },
+  {
+    content: "保養皮鞋",
+    done: false,
+    id: 3,
   },
 ];
 
@@ -27,7 +32,8 @@ function renderTodo(todos) {
   todos.forEach((item, index) => {
     str += `<li>
         <label for="" class="checkbox">
-          <input type="checkbox" />
+          <input type="checkbox" data-id="${item.id}" 
+          ${item.done ? "checked" : ""}/>
           <span>${item.content}</span>
         </label>
         <button class="delete_btn" data-num="${index}">
@@ -38,6 +44,24 @@ function renderTodo(todos) {
   list.innerHTML = str;
 }
 
+//redner todolist by status
+function setTodobyStatus(status) {
+  switch (status) {
+    case "undone":
+      const undoneList = todoList.filter((todo) => todo.done === false);
+      renderTodo(undoneList);
+      break;
+
+    case "done":
+      const doneList = todoList.filter((todo) => todo.done === true);
+      renderTodo(doneList);
+      break;
+
+    default:
+      renderTodo(todoList);
+  }
+}
+
 //新增待辦事項
 add_btn.addEventListener("click", () => {
   if (add_input.value.trim() == "") {
@@ -46,7 +70,7 @@ add_btn.addEventListener("click", () => {
   }
   const item = {
     content: add_input.value,
-    status: "undone",
+    done: false,
     id: new Date().getTime(),
   };
 
@@ -58,19 +82,29 @@ add_btn.addEventListener("click", () => {
     tab.classList.remove("active");
   });
   todoTabs[0].classList.add("active");
+  tabStatus = "all";
 });
 
-//刪除待辦事項
+//更改狀態＆刪除待辦事項
 list.addEventListener("click", (e) => {
   if (
     e.target.getAttribute("class") !== "delete_btn" &&
     e.target.getAttribute("class") !== "fa-solid fa-xmark"
   ) {
-    return;
+    //把data-id(string)轉型為number
+    const selectId = parseInt(e.target.getAttribute("data-id"));
+    todoList.forEach((item) => {
+      if (item.id !== selectId) {
+        return;
+      }
+      item.done = !item.done;
+    });
+    setTodobyStatus(tabStatus);
+  } else {
+    const num = e.target.getAttribute("data-num");
+    todoList.splice(num, 1);
+    setTodobyStatus(tabStatus);
   }
-  const num = e.target.getAttribute("data-num");
-  todoList.splice(num, 1);
-  renderTodo(todoList);
 });
 
 //依照選取頁籤變更當前todolist狀態
@@ -86,23 +120,5 @@ function changeTab(e) {
 
   e.target.classList.add("active");
   tabStatus = selectedTab;
-  statusHandler(tabStatus);
-}
-
-//redner todolist by status
-function statusHandler(status) {
-  switch (status) {
-    case "undone":
-      const undoneList = todoList.filter((todo) => todo.status === "undone");
-      renderTodo(undoneList);
-      break;
-
-    case "done":
-      const doneList = todoList.filter((todo) => todo.status === "done");
-      renderTodo(doneList);
-      break;
-
-    default:
-      renderTodo(todoList);
-  }
+  setTodobyStatus(tabStatus);
 }
