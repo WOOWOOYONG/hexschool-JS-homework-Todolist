@@ -136,7 +136,7 @@ function countUndone() {
   }).length;
   if (undoneNum == 0) {
     remainingArea.textContent = `沒事多喝水`;
-    reutrn;
+    return;
   }
   remainingArea.textContent = `${undoneNum} 個待完成`;
 }
